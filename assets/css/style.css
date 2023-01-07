@@ -1,0 +1,436 @@
+* {
+   font-family: sans-serif;
+}
+
+header {
+   height: 50px;
+   background-color: #333;
+   color: #fff;
+   display: flex;
+   justify-content: space-between;
+   position: absolute;
+   width: 100%;
+   top: 0;
+   left: 0;
+   z-index: 100;
+}
+
+header div {
+   display: flex;
+   gap: 0.5rem;
+}
+
+header h1 {
+   font-size: 1.15rem;
+   margin-top: 0;
+   margin-left: 0.5rem;
+   line-height: 50px;
+   display: inline-block;
+}
+
+#keyboardShortcutsBtn {
+   background: transparent url(../images/ic-keyboard.svg) no-repeat center;
+   border: none;
+   width: 60px;
+   height: 50px;
+   cursor: pointer;
+   display: none;
+}
+
+#about {
+   line-height: 50px;
+   background-color: transparent;
+   color: #fff;
+   border: none;
+   padding: 0 1rem;
+   text-decoration: none;
+   font-size: 1rem;
+   cursor: pointer;
+}
+
+#about:hover,
+#keyboardShortcutsBtn:hover {
+   background-color: #555;
+}
+
+.keyboard-shortcut {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   margin-bottom: 1rem;
+}
+
+.keyboard-shortcut div:first-child {
+   white-space: nowrap;
+}
+
+.keyboard-button {
+   background-color: #ddd;
+   border: 1px solid #767676;
+   border-radius: 4px;
+   box-sizing: border-box;
+   padding: 0.25rem 0.5rem;
+   display: inline-block;
+}
+
+body {
+   background-color: #fafafa;
+   text-align: center;
+}
+
+button {
+   padding: 0;
+   background-color: #fff;
+   color: #333;
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+#anglo-container {
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 6rem;
+   width: fit-content;
+   max-width: 100%;
+   overflow-x: auto;
+}
+
+
+#viewer-options {
+   display: flex;
+   text-align: left;
+   max-width: fit-content;
+   margin: 2rem auto;
+   gap: 2rem;
+   flex-wrap: wrap;
+}
+
+#viewer-options div {
+   padding: 0;
+   white-space: nowrap;
+}
+
+#viewer-options div div {
+   display: flex;
+   align-items: baseline;
+   gap: 0.3rem;
+}
+
+#viewer-options #sound-option {
+   margin-top: 1rem;
+}
+
+#viewer-options select {
+   margin-bottom: 0.5rem;
+}
+
+#viewer-options button,
+.modal-actions button {
+   height: 30px;
+   padding-left: 0.5rem;
+   padding-right: 0.5rem;
+   border: 1px solid #767676;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+#viewer-options button:hover,
+.modal-actions button:hover {
+   background-color: #eee;
+}
+
+#viewer-options button:active {
+   background-color: #333;
+   color: #fff;
+}
+
+#layout {
+   height: 30px;
+   width: 100%;
+   background-color: white;
+   border: 1px solid #767676;
+   border-radius: 0%;
+}
+
+#layout:hover {
+   background-color: #eee;
+}
+
+#editLayoutBtn {
+   flex-basis: 60%;
+}
+
+#drone-option {
+   margin-bottom: 0.5rem;
+}
+
+
+#anglo-keyboard {
+   text-align: left;
+   width: fit-content;
+   white-space: nowrap;
+}
+
+.button {
+   display: inline-block;
+   width: 60px;
+   height: 60px;
+   white-space: normal;
+   /* background-color: pink; */
+}
+
+.top {
+   padding: 5px 5px 0 5px;
+}
+
+.bottom {
+   padding: 0 5px 5px 5px;
+}
+
+.button .top button {
+   position: relative;
+   width: 50px;
+   height: 25px;
+   border-radius: 25px 25px 0 0;
+   border: 1px solid #767676;
+   border-bottom-width: 0.5px;
+   box-sizing: border-box;
+   cursor: pointer;
+}
+
+.button .top button:hover,
+.button .bottom button:hover,
+.natural:hover {
+   background-color: #eee;
+}
+
+.button .bottom button {
+   position: relative;
+   width: 50px;
+   height: 25px;
+   border-radius: 0 0 25px 25px;
+   border: 1px solid #767676;
+   border-top-width: 0.5px;
+   box-sizing: border-box;
+   cursor: pointer;
+}
+
+
+.top button.selected,
+.top button.selected:hover {
+   background-color: #0000FF;
+   color: white;
+}
+
+.bottom button.selected,
+.bottom button.selected:hover {
+   background-color: #A30014;
+   color: white;
+}
+
+.button.push-only .top,
+.button.pull-only .bottom {
+   padding: 5px;
+}
+
+.button.push-only .top button {
+   height: 50px;
+   border-radius: 25px;
+   border: 1px solid #767676;
+}
+
+.button.push-only .bottom {
+   display: none;
+}
+
+.button.pull-only .bottom button {
+   height: 50px;
+   border-radius: 25px;
+   border: 1px solid #767676;
+}
+
+.button.pull-only .top {
+   display: none;
+}
+
+
+.octave-top {
+   height: 30px;
+   width: 60px;
+   z-index: 0;
+   position: relative;
+   margin: 0 0 -25px -5px;
+}
+
+.octave-bottom {
+   height: 30px;
+   width: 60px;
+   z-index: 0;
+   position: relative;
+   margin: 0 0 -30px -5px;
+}
+
+
+
+
+
+
+
+
+/* ===== MODALS ===== */
+
+/* overlay */
+.modal {
+   display: none;
+   /* Hidden by default */
+   position: fixed;
+   /* Stay in place */
+   z-index: 100;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+   background-color: rgb(47, 79, 79);
+   /* Fallback color */
+   background-color: rgba(47, 79, 79, 0.6);
+}
+
+/* modal content */
+.modal-content {
+   background-color: #fff;
+   margin-left: auto;
+   margin-right: auto;
+   position: relative;
+   top: 50%;
+   transform: translateY(-50%);
+   padding: 1.5rem;
+   border: 1px solid #888;
+   width: 80%;
+   max-width: 400px;
+   text-align: left;
+   border-radius: 8px;
+}
+
+.modal-content h2 {
+   margin-top: 0;
+}
+
+.modal-content p {
+   line-height: 1.3;
+}
+
+.modal-content input[type=text] {
+   display: block;
+   box-sizing: border-box;
+   width: 100%;
+   height: 25px;
+   margin-bottom: 0.5rem;
+}
+
+.modal-content .error-text {
+   visibility: hidden;
+   border-width: 0;
+}
+
+.modal-actions {
+   display: flex;
+   justify-content: right;
+   gap: 0.5rem;
+}
+
+.modal-actions .destructive {
+   background-color: #eb0000;
+   color: #fff;
+   border: none;
+}
+
+.modal-actions .destructive:hover {
+   background-color: #A30014;
+}
+
+.modal-actions .primary {
+   background-color: #6CAC04;
+   color: #fff;
+   border: none;
+}
+
+.modal-actions .primary:hover {
+   background-color: #578609;
+}
+
+.modal-content .success-text {
+   color: #4D7A06;
+   visibility: hidden;
+   display: block;
+   margin-bottom: 0.5rem;
+}
+
+/* close button */
+.close {
+   color: #aaaaaa;
+   float: right;
+   font-size: 28px;
+   font-weight: normal;
+}
+
+.close:hover,
+.close:focus {
+   color: #000;
+   text-decoration: none;
+   cursor: pointer;
+}
+
+
+/* ===== ARROWS ===== */
+
+.arrow::before {
+   border-top: 3px solid #555;
+   border-right: 3px solid #555;
+   content: '';
+   display: inline-block;
+   height: 8px;
+   width: 8px;
+   left: 1px;
+   position: relative;
+   top: 1px;
+   transform: rotate(-45deg);
+   vertical-align: top;
+}
+
+.arrow.up:before {
+   top: 3px;
+}
+
+.arrow.right:before {
+   left: -2px;
+   transform: rotate(45deg);
+}
+
+.arrow.down:before {
+   top: 0;
+   transform: rotate(135deg);
+}
+
+.arrow.left:before {
+   left: 2px;
+   transform: rotate(-135deg);
+}
+
+
+@media only screen and (max-width: 630px) {
+
+   #viewer-options div:first-child {
+      flex-grow: 1;
+   }
+
+   #layout {
+      width: 100%;
+      height: 40px;
+   }
+
+}

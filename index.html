@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon" />
+	<meta name="description" content="Upload a midi file and see how to play it on an Anglo concertina!">
+    <title>Midi2Anglo</title>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Midi2Anglo</h1>
+        </div>
+        <div>
+            <button id="keyboardShortcutsBtn"></button>
+            <button id="about">About</a>
+        </div>
+    </header>
+    <div id="viewer">
+    <div id="anglo-container">
+        <div id="anglo-keyboard">
+            <!-- concertina buttons -->
+        </div>
+    </div>
+
+    <div id="viewer-options">
+        <div>
+            <select id="layout">
+                <option value="cg-wheatstone-30">CG Wheatstone</option>
+                <option value="cg-jeffries-30">CG Jeffries</option>
+            </select>
+            <div id="drone-option">
+                <input type="checkbox" id="drone" name="drone">
+                <label for="drone"> Drone key</label>
+            </div>
+            <!-- <div>
+                <button id="editLayoutBtn">Edit layout</button>
+                <button id="getLinkBtn">Get link</button>
+            </div>
+            <div>
+                <button id="addToLayoutsBtn">Add to your layouts</button>
+                <button id="removeFromLayoutsBtn">Remove from your layouts</button>
+            </div> -->
+        </div>
+        <div>
+            <div>
+                <input type="radio" id="pushpull" name="bellows" value="pushpull" checked>
+                <label for="pushpull">push or pull</label>
+            </div>
+            <div>
+                <input type="radio" id="push" name="bellows" value="push">
+                <label for="push">push only</label>
+            </div>
+            <div>
+                <input type="radio" id="pull" name="bellows" value="pull">
+                <label for="pull">pull only</label>
+            </div>
+            <div id="sound-option">
+                <input type="checkbox" id="sound" name="sound" checked="checked">
+                <label for="sound"> Sound</label>
+            </div>
+        </div>
+
+        <!-- <div>
+            <div>
+                <input type="checkbox" id="matchoctave" name="matchoctave" checked="checked">
+                <label for="matchoctave"> Match octave</label>
+            </div>
+            <div>
+                <input type="checkbox" id="multiselect" name="multiselect" value="false">
+                <label for="multiselect">Select multiple notes [long-press]</label>
+            </div>
+            <div>
+                <input type="checkbox" id="coloroctave" name="coloroctave" value="false">
+                <label for="coloroctave">Color octaves</label>
+            </div>
+            <div>
+                <input type="checkbox" id="absent-notes" name="absent-notes" value="true" checked="checked">
+                <label for="absent-notes">Gray out absent notes</label>
+            </div>
+            <div>
+                <input type="checkbox" id="concertina-labels" name="concertina-labels" value="true" checked="checked">
+                <label for="concertina-labels">Concertina labels</label>
+            </div>
+            <div>
+                <input type="checkbox" id="piano-labels" name="piano-labels" value="true" checked="checked">
+                <label for="piano-labels">Piano labels</label>
+            </div>
+            <div>
+                <input type="checkbox" id="accidentals" name="accidentals" value="true">
+                <label for="accidentals">Alternate accidental spellings</label>
+            </div>
+        </div> -->
+    </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="about-modal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Midi2Anglo</h2>
+            <p>To do: put some content here</p>
+        </div>
+
+    </div>
+
+    <div id="parse-error-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Error reading midi file</h2>
+            <p>Something bad happened. Oopsie!</p>
+            <div class="modal-actions">
+                <button onclick="closeModal()">Aw man</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="keyboard-shortcuts-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Keyboard controls</h2>
+            <div class="keyboard-shortcut">
+                <div>
+                    <span class="keyboard-button">left</span> / <span class="keyboard-button">right</span>
+                </div>
+                <div>
+                    Go to the next/previous fingering in the tune
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/js/notes.js"></script>
+    <script src="./assets/js/layouts.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>

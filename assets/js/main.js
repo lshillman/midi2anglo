@@ -57,7 +57,7 @@ function renderAngloKeyboard() {
             angloKeyboard.innerHTML += `<br>`;
         }
         if (!(button.drone && !opt_drone.checked)) {
-            angloKeyboard.innerHTML += `<div class="button ${opt_bellows}" style="margin-left:${button.x}px"><div class="top ${"o" + noteNames[button.push].substr(-1)}"><button data-note="${noteNames[button.push]}">${pushLabel}</button></div><div class="bottom ${"o" + noteNames[button.pull].substr(-1)}"><button data-note="${noteNames[button.pull]}">${pullLabel}</button></div></div>`;
+            angloKeyboard.innerHTML += `<div class="button ${opt_bellows}" style="margin-left:${button.x}px"><div class="top ${"o" + noteNames[button.push].substr(-1)}"><button data-number="${button.number + "Push"}" data-note="${noteNames[button.push]}">${pushLabel}</button></div><div class="bottom ${"o" + noteNames[button.pull].substr(-1)}"><button data-number="${button.number + "Pull"}" data-note="${noteNames[button.pull]}">${pullLabel}</button></div></div>`;
         }
     }
     bindAngloButtons();

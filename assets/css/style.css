@@ -99,6 +99,10 @@ button {
    overflow-x: auto;
 }
 
+#player-controls {
+   max-width: fit-content;
+   margin: 2rem auto;
+}
 
 #viewer-options {
    display: flex;

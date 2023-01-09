@@ -11,6 +11,10 @@ if (navigator.userAgent.toLowerCase().indexOf('mobile') > -1) {
 const angloContainer = document.getElementById("anglo-container");
 const angloKeyboard = document.getElementById("anglo-keyboard");
 
+//player controls
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("prev");
+
 // user-defined display options
 const opt_layout = document.getElementById("layout");
 const opt_drone = document.getElementById("drone");
@@ -32,10 +36,13 @@ const activeNotes = [];
 const noteSelection = [];
 
 // an array to hold the currently selected buttons
-const buttonSelection = [];
+const buttonSelection = new Set();
 
 // the key that should be selected if the user starts using arrow keys to navigate the keyboard. Not currently used.
 let currentIndex = 1;
+
+// the initial selection from the parsed midi (-1 before we've parsed anything)
+let currentSelection = -1;
 
 
 function renderAngloKeyboard() {
@@ -78,11 +85,25 @@ function renderAngloKeyboard() {
 
 
 
-function selectConcertinaButtons() {
+function selectButtonsByNote() {
     for (button of angloKeyboard.children) {
         for (div of button.children) {
             for (note of div.children) {
                 if (noteSelection.includes(note.dataset.note)) {
+                    note.classList.add("selected");
+                } else {
+                    note.classList.remove("selected");
+                }
+            }
+        }
+    }
+}
+
+function selectButtonsByNumber() {
+    for (button of angloKeyboard.children) {
+        for (div of button.children) {
+            for (note of div.children) {
+                if (buttonSelection.has(note.dataset.number)) {
                     note.classList.add("selected");
                 } else {
                     note.classList.remove("selected");
@@ -141,7 +162,7 @@ function updateNoteSelection(note) {
         // console.log("removing note");
         noteSelection.splice(noteSelection.indexOf(note), 1);
     }
-    selectConcertinaButtons();
+    selectButtonsByNote();
 }
 
 
@@ -242,6 +263,34 @@ function selectLayout() {
 }
 
 
+function loadNextSelection() {
+    if (currentSelection < tune.length) {
+        currentSelection++;
+        tune[currentSelection].startButtons.forEach((button) => buttonSelection.add(button));
+        tune[currentSelection].stopButtons.forEach((button) => buttonSelection.delete(button));
+        noteSelection.length = 0;
+        tune[currentSelection].startNotes.forEach((note) => noteSelection.push(note));
+        selectButtonsByNumber();
+        playSelection();
+    } 
+}
+
+function loadPrevSelection() {
+    if (currentSelection > -1) {
+        tune[currentSelection].startButtons.forEach((button) => buttonSelection.delete(button));
+        tune[currentSelection].stopButtons.forEach((button) => buttonSelection.add(button));
+        noteSelection.length = 0;
+        currentSelection--;
+        tune[currentSelection].startButtons.forEach((button) => buttonSelection.add(button));
+        tune[currentSelection].stopButtons.forEach((button) => buttonSelection.delete(button));
+        tune[currentSelection].startNotes.forEach((note) => noteSelection.push(note));
+        selectButtonsByNumber();
+        playSelection();
+    } 
+}
+
+nextBtn.onclick = () => loadNextSelection();
+prevBtn.onclick = () => loadPrevSelection();
 
 opt_layout.addEventListener("change", () => {
     selectLayout();

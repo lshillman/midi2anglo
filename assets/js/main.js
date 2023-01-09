@@ -264,7 +264,7 @@ function selectLayout() {
 
 
 function loadNextSelection() {
-    if (currentSelection < tune.length) {
+    if (currentSelection < tune.length-1) {
         currentSelection++;
         tune[currentSelection].stopButtons.forEach((button) => buttonSelection.delete(button));
         tune[currentSelection].startButtons.forEach((button) => buttonSelection.add(button));
@@ -272,11 +272,14 @@ function loadNextSelection() {
         tune[currentSelection].startNotes.forEach((note) => noteSelection.push(note));
         selectButtonsByNumber();
         playSelection();
-    } 
+    } else {
+        currentSelection = 0;
+        loadNextSelection();
+    }
 }
 
 function loadPrevSelection() {
-    if (currentSelection > -1) {
+    if (currentSelection > 0) {
         tune[currentSelection].startButtons.forEach((button) => buttonSelection.delete(button));
         tune[currentSelection].stopButtons.forEach((button) => buttonSelection.add(button));
         noteSelection.length = 0;
@@ -286,7 +289,7 @@ function loadPrevSelection() {
         tune[currentSelection].startNotes.forEach((note) => noteSelection.push(note));
         selectButtonsByNumber();
         playSelection();
-    } 
+    }
 }
 
 nextBtn.onclick = () => loadNextSelection();

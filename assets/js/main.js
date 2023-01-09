@@ -266,8 +266,8 @@ function selectLayout() {
 function loadNextSelection() {
     if (currentSelection < tune.length) {
         currentSelection++;
-        tune[currentSelection].startButtons.forEach((button) => buttonSelection.add(button));
         tune[currentSelection].stopButtons.forEach((button) => buttonSelection.delete(button));
+        tune[currentSelection].startButtons.forEach((button) => buttonSelection.add(button));
         noteSelection.length = 0;
         tune[currentSelection].startNotes.forEach((note) => noteSelection.push(note));
         selectButtonsByNumber();
@@ -281,8 +281,8 @@ function loadPrevSelection() {
         tune[currentSelection].stopButtons.forEach((button) => buttonSelection.add(button));
         noteSelection.length = 0;
         currentSelection--;
-        tune[currentSelection].startButtons.forEach((button) => buttonSelection.add(button));
         tune[currentSelection].stopButtons.forEach((button) => buttonSelection.delete(button));
+        tune[currentSelection].startButtons.forEach((button) => buttonSelection.add(button));
         tune[currentSelection].startNotes.forEach((note) => noteSelection.push(note));
         selectButtonsByNumber();
         playSelection();

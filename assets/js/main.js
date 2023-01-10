@@ -180,7 +180,7 @@ function playNote(note) {
         }
         // console.debug(note + " (" + freq + " Hz)");
         oscillator = audioCtx.createOscillator(); // create Oscillator node
-        oscillator.type = "sine";
+        oscillator.type = "triangle";
         oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime); // value in hertz
         oscillator.connect(audioCtx.destination);
         oscillator.connect(gainNode); // connect the volume control to the oscillator
@@ -289,6 +289,8 @@ function getTuneInfo(e) {
     xhr.send(data);
     xhr.onload = () => {
         console.log(xhr.responseText);
+        tune = JSON.parse(xhr.responseText)
+        currentSelection = -1;
     }
 }
 
@@ -320,6 +322,10 @@ function loadPrevSelection() {
         selectButtonsByNumber();
         playSelection();
     }
+}
+
+function playTune() {
+    console.log("play button clicked");
 }
 
 nextBtn.onclick = () => loadNextSelection();

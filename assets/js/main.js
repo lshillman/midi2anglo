@@ -25,6 +25,9 @@ const opt_pull = document.getElementById("pull");
 let opt_bellows = ""; // stores the value of the selected bellows option from pushpull, push, or pull
 const opt_sound = document.getElementById("sound");
 
+// submit midi button
+const submitBtn = document.getElementById("submit-midi");
+
 
 // an array that contains all currently-displayed concertina buttons
 let buttons = [];
@@ -262,9 +265,44 @@ function selectLayout() {
     opt_layout.blur();
 }
 
+function getTuneInfo(e) {
+    e.preventDefault();
+    console.log("sending the midi file...");
+    var data = new FormData();
+    data.append("file", document.getElementById("file").value);
+    fetch('https://concertina-webapp-7zdj7tdxka-uw.a.run.app', {
+        method: "POST",
+        body: data,
+    }).then((result) => {
+        console.log(result);
+    });
+}
+
+// Alternatively, use XMLHttpRequest instead of fetch:
+
+// function getTuneInfo(e) {
+//     e.preventDefault();
+//     console.log("I'm inside getTuneInfo");
+
+//     const xhr = new XMLHttpRequest();
+//     xhr.open('POST', 'https://concertina-webapp-7zdj7tdxka-uw.a.run.app');
+
+//     var data = new FormData();
+//     data.append("file", document.getElementById("file").value);
+
+//     xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+//     // xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+//     xhr.send(data);
+//     xhr.onload = () => {
+//         console.log(xhr.responseText);
+//     }
+
+// }
+
 
 function loadNextSelection() {
-    if (currentSelection < tune.length-1) {
+    if (currentSelection < tune.length - 1) {
         currentSelection++;
         tune[currentSelection].stopButtons.forEach((button) => buttonSelection.delete(button));
         tune[currentSelection].startButtons.forEach((button) => buttonSelection.add(button));
@@ -312,6 +350,8 @@ opt_pull.addEventListener("change", () => {
 opt_drone.addEventListener("change", () => {
     renderAngloKeyboard();
 });
+
+submitBtn.addEventListener("click", (e) => getTuneInfo(e));
 
 
 document.addEventListener('keydown', function (e) {

@@ -265,40 +265,32 @@ function selectLayout() {
     opt_layout.blur();
 }
 
-function getTuneInfo(e) {
-    e.preventDefault();
-    console.log("sending the midi file...");
-    var data = new FormData();
-    data.append("file", document.getElementById("file").value);
-    fetch('https://concertina-webapp-7zdj7tdxka-uw.a.run.app', {
-        method: "POST",
-        body: data,
-    }).then((result) => {
-        console.log(result);
-    });
-}
+// function getTuneInfo(e) {
+//     e.preventDefault();
+//     console.log("sending the midi file...");
+//     var data = new FormData();
+//     data.append("file", document.getElementById("file").value);
+//     fetch('https://concertina-webapp-7zdj7tdxka-uw.a.run.app', {
+//         method: "POST",
+//         body: data,
+//     }).then((result) => {
+//         console.log(result);
+//     });
+// }
 
 // Alternatively, use XMLHttpRequest instead of fetch:
 
-// function getTuneInfo(e) {
-//     e.preventDefault();
-//     console.log("I'm inside getTuneInfo");
-
-//     const xhr = new XMLHttpRequest();
-//     xhr.open('POST', 'https://concertina-webapp-7zdj7tdxka-uw.a.run.app');
-
-//     var data = new FormData();
-//     data.append("file", document.getElementById("file").value);
-
-//     xhr.setRequestHeader('Content-Type', 'multipart/form-data');
-//     // xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-//     xhr.send(data);
-//     xhr.onload = () => {
-//         console.log(xhr.responseText);
-//     }
-
-// }
+function getTuneInfo(e) {
+    e.preventDefault();
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://concertina-webapp-7zdj7tdxka-uw.a.run.app');
+    var data = new FormData();
+    data.append("file", document.getElementById("file").files[0]);
+    xhr.send(data);
+    xhr.onload = () => {
+        console.log(xhr.responseText);
+    }
+}
 
 
 function loadNextSelection() {

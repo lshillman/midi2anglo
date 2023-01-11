@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon" />
-	<meta name="description" content="Upload a midi file and see how to play it on an Anglo concertina!">
+    <meta name="description" content="Upload a midi file and see how to play it on an Anglo concertina!">
     <title>Midi2Anglo</title>
 </head>
+
 <body>
     <header>
         <div>
@@ -20,40 +22,40 @@
         </div>
     </header>
     <div id="viewer">
-    <div id="anglo-container">
-        <div id="anglo-keyboard">
-            <!-- concertina buttons -->
-        </div>
-    </div>
-
-    <div id="player-controls">
-        <button id="prev">prev</button>
-        <button id="next">next</button>
-        <button id="play">play</button>
-        <button id="stop">stop</button>
-    </div>
-
-    <form id="upload-form">
-        <div>
-          <label for="file">Choose midi file to upload</label>
-          <input type="file" id="file" name="file" accept=".mid,.midi,audio/midi,audio/x-midi"/>
-        </div>
-        <div>
-          <button id="submit-midi">Submit</button>
-        </div>
-    </form>
-
-    <div id="viewer-options">
-        <div>
-            <select id="layout">
-                <option value="cg-wheatstone-30">CG Wheatstone</option>
-                <option value="cg-jeffries-30">CG Jeffries</option>
-            </select>
-            <div id="drone-option">
-                <input type="checkbox" id="drone" name="drone">
-                <label for="drone"> Drone key</label>
+        <form id="upload-form">
+            <div>
+                <label for="file">Choose midi file to upload</label>
+                <input type="file" id="file" name="file" accept=".mid,.midi,audio/midi,audio/x-midi" />
             </div>
-            <!-- <div>
+            <div>
+                <button id="submit-midi">Submit</button>
+            </div>
+        </form>
+
+        <div id="anglo-container">
+            <div id="anglo-keyboard">
+                <!-- concertina buttons -->
+            </div>
+        </div>
+
+        <div id="player-controls">
+            <button id="prev" title="Previous fingering [left]">prev</button>
+            <button id="next" title="Next fingering [right]">next</button>
+            <button id="play" title="Play/pause [space]">play</button>
+            <button id="stop" title="Stop and rewind">stop</button>
+        </div>
+
+        <div id="viewer-options">
+            <div>
+                <select id="layout">
+                    <option value="cg-wheatstone-30">CG Wheatstone</option>
+                    <option value="cg-jeffries-30">CG Jeffries</option>
+                </select>
+                <div id="drone-option">
+                    <input type="checkbox" id="drone" name="drone">
+                    <label for="drone"> Drone key</label>
+                </div>
+                <!-- <div>
                 <button id="editLayoutBtn">Edit layout</button>
                 <button id="getLinkBtn">Get link</button>
             </div>
@@ -61,27 +63,27 @@
                 <button id="addToLayoutsBtn">Add to your layouts</button>
                 <button id="removeFromLayoutsBtn">Remove from your layouts</button>
             </div> -->
-        </div>
-        <div>
-            <div>
-                <input type="radio" id="pushpull" name="bellows" value="pushpull" checked>
-                <label for="pushpull">push or pull</label>
             </div>
             <div>
-                <input type="radio" id="push" name="bellows" value="push">
-                <label for="push">push only</label>
+                <div>
+                    <input type="radio" id="pushpull" name="bellows" value="pushpull" checked>
+                    <label for="pushpull">push or pull</label>
+                </div>
+                <div>
+                    <input type="radio" id="push" name="bellows" value="push">
+                    <label for="push">push only</label>
+                </div>
+                <div>
+                    <input type="radio" id="pull" name="bellows" value="pull">
+                    <label for="pull">pull only</label>
+                </div>
+                <div id="sound-option">
+                    <input type="checkbox" id="sound" name="sound" checked="checked">
+                    <label for="sound"> Sound</label>
+                </div>
             </div>
-            <div>
-                <input type="radio" id="pull" name="bellows" value="pull">
-                <label for="pull">pull only</label>
-            </div>
-            <div id="sound-option">
-                <input type="checkbox" id="sound" name="sound" checked="checked">
-                <label for="sound"> Sound</label>
-            </div>
-        </div>
 
-        <!-- <div>
+            <!-- <div>
             <div>
                 <input type="checkbox" id="matchoctave" name="matchoctave" checked="checked">
                 <label for="matchoctave"> Match octave</label>
@@ -111,7 +113,7 @@
                 <label for="accidentals">Alternate accidental spellings</label>
             </div>
         </div> -->
-    </div>
+        </div>
     </div>
 
     <!-- About Modal -->
@@ -121,7 +123,9 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Midi2Anglo</h2>
-            <p>To do: put some content here</p>
+            <p>Midi2Anglo shows you fingering recommendations for Anglo concertina based on a midi file you upload. It's very much still a work in progress. Currently, you can load relatively simple midi files that only contain notes playable on a 30-button C/G instrument. More complicated files containing notes outside the concertina's playable range will not readable. We're working on it!</p>
+            <p>Fingering recommendations come from Owen Anderson's <a href="https://github.com/resistor/concertina-pbqp" target="_blank" rel="noreferrer noopener">Concertina PBQP Solver</a>. You can read more about how it works on <a href="https://www.concertina.net/forums/index.php?/topic/25769-automatic-fingering-generation-for-anglo/" target="_blank" rel="noreferrer noopener">concertina.net</a>.</p>
+            <p>The front end is by Luke Hillman (see also: <a href="https://anglopiano.com" target="_blank" rel="noreferrer noopener">Anglo Piano</a>).</p>
         </div>
 
     </div>
@@ -146,7 +150,15 @@
                     <span class="keyboard-button">left</span> / <span class="keyboard-button">right</span>
                 </div>
                 <div>
-                    Go to the next/previous fingering in the tune
+                    Go to the previous/next fingering in the tune
+                </div>
+            </div>
+            <div class="keyboard-shortcut">
+                <div>
+                    <span class="keyboard-button">space</span>
+                </div>
+                <div>
+                    Play/pause the tune
                 </div>
             </div>
         </div>
@@ -156,4 +168,5 @@
     <script src="./assets/js/layouts.js"></script>
     <script src="./assets/js/main.js"></script>
 </body>
+
 </html>

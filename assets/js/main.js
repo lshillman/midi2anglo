@@ -15,7 +15,7 @@ const angloKeyboard = document.getElementById("anglo-keyboard");
 const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("prev");
 const playBtn = document.getElementById("play")
-const pauseBtn = document.getElementById("pause")
+const stopBtn = document.getElementById("stop")
 
 // user-defined display options
 const opt_layout = document.getElementById("layout");
@@ -292,7 +292,9 @@ function getTuneInfo(e) {
     xhr.onload = () => {
         console.log(xhr.responseText);
         tune = JSON.parse(xhr.responseText)
-        currentSelection = -1;
+        currentSelection = 0;
+        currentTime = 0;
+        clearKeyboard();
     }
 }
 
@@ -326,8 +328,15 @@ function loadPrevSelection() {
     }
 }
 
+function clearKeyboard() {
+    document.querySelectorAll("#anglo-keyboard button").forEach((button) => {
+        button.classList.remove("selected");
+    });
+}
+
 function playTune() {
     playing = true;
+    playBtn.innerText = "pause";
     if (currentSelection < 0 || currentSelection >= tune.length - 1) {
         currentSelection = 0;
     } else {
@@ -342,21 +351,42 @@ function playTune() {
         }
         if (currentSelection == tune.length - 1) {
             clearInterval(playInterval);
+            pauseTune();
             currentSelection = 0;
             currentTime = 0;
-            document.querySelectorAll("#anglo-keyboard button").forEach((button) => {
-                button.classList.remove("selected");
-            });
+            clearKeyboard();
         } else {
             currentTime++;
         }
     }
 }
 
-nextBtn.onclick = () => loadNextSelection();
-prevBtn.onclick = () => loadPrevSelection();
-playBtn.onclick = () => { if (!playing) { playTune() }};
-pauseBtn.onclick = () => { playing = false };
+function pauseTune() {
+    playing = false;
+    playBtn.innerText = "play";
+}
+
+nextBtn.onclick = () => {
+    pauseTune()
+    loadNextSelection();
+}
+prevBtn.onclick = () => {
+    pauseTune();
+    loadPrevSelection();
+}
+playBtn.onclick = () => {
+    if (!playing) {
+        playTune();
+    } else {
+        pauseTune();
+    }
+};
+stopBtn.onclick = () => {
+    pauseTune();
+    currentTime = 0;
+    currentSelection = 0;
+    clearKeyboard();
+};
 
 opt_layout.addEventListener("change", () => {
     selectLayout();
@@ -380,11 +410,19 @@ submitBtn.addEventListener("click", (e) => getTuneInfo(e));
 
 
 document.addEventListener('keydown', function (e) {
-    // console.log(e.code);
+    console.log(e.code);
     if (e.code == "ArrowRight") {
-        moveRight();
+        pauseTune()
+        loadNextSelection();
     } else if (e.code == "ArrowLeft") {
-        moveLeft();
+        pauseTune()
+        loadPrevSelection();
+    } else if (e.code == "Space") {
+        if (!playing) {
+            playTune();
+        } else {
+            pauseTune();
+        }
     } else if (e.code == "Escape") {
         closeModal();
     }

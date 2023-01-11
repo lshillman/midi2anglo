@@ -14,6 +14,8 @@ const angloKeyboard = document.getElementById("anglo-keyboard");
 //player controls
 const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("prev");
+const playBtn = document.getElementById("play")
+const pauseBtn = document.getElementById("pause")
 
 // user-defined display options
 const opt_layout = document.getElementById("layout");
@@ -44,9 +46,9 @@ const buttonSelection = new Set();
 // the key that should be selected if the user starts using arrow keys to navigate the keyboard. Not currently used.
 let currentIndex = 1;
 
-// the initial selection from the parsed midi (-1 before we've parsed anything)
-let currentSelection = -1;
-
+let currentSelection = 0; // the current selection from the parsed midi
+let currentTime = 0; // the current time for the midi player in milliseconds
+let playing = false // are we currently playing a tune?
 
 function renderAngloKeyboard() {
     let layoutnotes = [];
@@ -180,7 +182,7 @@ function playNote(note) {
         }
         // console.debug(note + " (" + freq + " Hz)");
         oscillator = audioCtx.createOscillator(); // create Oscillator node
-        oscillator.type = "sine";
+        oscillator.type = "triangle";
         oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime); // value in hertz
         oscillator.connect(audioCtx.destination);
         oscillator.connect(gainNode); // connect the volume control to the oscillator
@@ -265,51 +267,45 @@ function selectLayout() {
     opt_layout.blur();
 }
 
-function getTuneInfo(e) {
-    e.preventDefault();
-    console.log("sending the midi file...");
-    var data = new FormData();
-    data.append("file", document.getElementById("file").value);
-    fetch('https://concertina-webapp-7zdj7tdxka-uw.a.run.app', {
-        method: "POST",
-        body: data,
-    }).then((result) => {
-        console.log(result);
-    });
-}
+// function getTuneInfo(e) {
+//     e.preventDefault();
+//     console.log("sending the midi file...");
+//     var data = new FormData();
+//     data.append("file", document.getElementById("file").value);
+//     fetch('https://concertina-webapp-7zdj7tdxka-uw.a.run.app', {
+//         method: "POST",
+//         body: data,
+//     }).then((result) => {
+//         console.log(result);
+//     });
+// }
 
 // Alternatively, use XMLHttpRequest instead of fetch:
 
-// function getTuneInfo(e) {
-//     e.preventDefault();
-//     console.log("I'm inside getTuneInfo");
-
-//     const xhr = new XMLHttpRequest();
-//     xhr.open('POST', 'https://concertina-webapp-7zdj7tdxka-uw.a.run.app');
-
-//     var data = new FormData();
-//     data.append("file", document.getElementById("file").value);
-
-//     xhr.setRequestHeader('Content-Type', 'multipart/form-data');
-//     // xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-//     xhr.send(data);
-//     xhr.onload = () => {
-//         console.log(xhr.responseText);
-//     }
-
-// }
+function getTuneInfo(e) {
+    e.preventDefault();
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://concertina-webapp-7zdj7tdxka-uw.a.run.app');
+    var data = new FormData();
+    data.append("file", document.getElementById("file").files[0]);
+    xhr.send(data);
+    xhr.onload = () => {
+        console.log(xhr.responseText);
+        tune = JSON.parse(xhr.responseText)
+        currentSelection = -1;
+    }
+}
 
 
 function loadNextSelection() {
     if (currentSelection < tune.length - 1) {
-        currentSelection++;
         tune[currentSelection].stopButtons.forEach((button) => buttonSelection.delete(button));
         tune[currentSelection].startButtons.forEach((button) => buttonSelection.add(button));
         noteSelection.length = 0;
         tune[currentSelection].startNotes.forEach((note) => noteSelection.push(note));
         selectButtonsByNumber();
         playSelection();
+        currentSelection++;
     } else {
         currentSelection = 0;
         loadNextSelection();
@@ -330,8 +326,37 @@ function loadPrevSelection() {
     }
 }
 
+function playTune() {
+    playing = true;
+    if (currentSelection < 0 || currentSelection >= tune.length - 1) {
+        currentSelection = 0;
+    } else {
+        currentTime = Math.floor(tune[currentSelection].time / 6);
+    }
+    const playInterval = setInterval(advance, 1);
+    function advance() {
+        if (playing && Math.floor(tune[currentSelection].time / 6) == currentTime) {
+            loadNextSelection();
+        } else if (!playing) {
+            clearInterval(playInterval);
+        }
+        if (currentSelection == tune.length - 1) {
+            clearInterval(playInterval);
+            currentSelection = 0;
+            currentTime = 0;
+            document.querySelectorAll("#anglo-keyboard button").forEach((button) => {
+                button.classList.remove("selected");
+            });
+        } else {
+            currentTime++;
+        }
+    }
+}
+
 nextBtn.onclick = () => loadNextSelection();
 prevBtn.onclick = () => loadPrevSelection();
+playBtn.onclick = () => { if (!playing) { playTune() }};
+pauseBtn.onclick = () => { playing = false };
 
 opt_layout.addEventListener("change", () => {
     selectLayout();

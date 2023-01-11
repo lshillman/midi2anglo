@@ -104,6 +104,47 @@ button {
    margin: 2rem auto;
 }
 
+#player-controls button {
+   padding: 0.5rem 1rem;
+   border: 1px solid #333;
+   background-color: #fff;
+   color: #333;
+   border-radius: 6px;
+   cursor: pointer;
+}
+
+#player-controls button:hover {
+   background-color: #eee;
+}
+
+#upload-form {
+   text-align: left;
+   max-width: fit-content;
+   margin: 0 auto;
+}
+
+#upload-form label {
+   display: block;
+   margin-bottom: 1rem;
+}
+
+#upload-form input[type=file] {
+   margin-bottom: 1rem;
+}
+
+#submit-midi {
+   padding: 0.5rem 1rem;
+   border: none;
+   background-color: #6CAC04;
+   color: #fff;
+   border-radius: 6px;
+   cursor: pointer;
+}
+
+#submit-midi:hover {
+   background-color: #578609;
+}
+
 #viewer-options {
    visibility: hidden;
    display: flex;

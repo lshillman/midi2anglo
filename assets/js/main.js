@@ -368,6 +368,7 @@ stopBtn.onclick = () => {
     currentTime = 0;
     currentSelection = 0;
     clearKeyboard();
+    buttonSelection.clear();
 };
 
 opt_layout.addEventListener("change", () => {

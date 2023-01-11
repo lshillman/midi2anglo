@@ -104,6 +104,19 @@ button {
    margin: 2rem auto;
 }
 
+#player-controls button {
+   padding: 0.5rem 1rem;
+   border: 1px solid #333;
+   background-color: #fff;
+   color: #333;
+   border-radius: 6px;
+   cursor: pointer;
+}
+
+#player-controls button:hover {
+   background-color: #eee;
+}
+
 #upload-form {
    text-align: left;
    max-width: fit-content;

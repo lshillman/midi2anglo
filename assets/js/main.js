@@ -327,7 +327,6 @@ function loadPrevSelection() {
 }
 
 function playTune() {
-    console.log("play button clicked");
     playing = true;
     if (currentSelection < 0 || currentSelection >= tune.length - 1) {
         currentSelection = 0;
@@ -342,7 +341,6 @@ function playTune() {
             clearInterval(playInterval);
         }
         if (currentSelection == tune.length - 1) {
-            console.log("attempting to clear interval");
             clearInterval(playInterval);
             currentSelection = 0;
             currentTime = 0;
@@ -357,7 +355,7 @@ function playTune() {
 
 nextBtn.onclick = () => loadNextSelection();
 prevBtn.onclick = () => loadPrevSelection();
-playBtn.onclick = () => playTune();
+playBtn.onclick = () => { if (!playing) { playTune() }};
 pauseBtn.onclick = () => { playing = false };
 
 opt_layout.addEventListener("change", () => {

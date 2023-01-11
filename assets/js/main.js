@@ -201,24 +201,6 @@ function playSelection() {
     });
 }
 
-function moveLeft() {
-    if (currentIndex > 0 && currentMode == "view") {
-        currentIndex--;
-        noteSelection.length = 0;
-        updateNoteSelection(activeNotes[currentIndex]);
-        playNote(activeNotes[currentIndex]);
-    }
-}
-
-function moveRight() {
-    if (currentIndex < activeNotes.length - 1 && currentMode == "view") {
-        currentIndex++;
-        noteSelection.length = 0;
-        updateNoteSelection(activeNotes[currentIndex]);
-        playNote(activeNotes[currentIndex]);
-    }
-}
-
 
 // should rewrite this to use proper event delegation at some point
 function bindAngloButtons() {

@@ -331,12 +331,13 @@ function playTune() {
         } else if (!playing) {
             clearInterval(playInterval);
         }
-        if (currentSelection == tune.length - 1) {
+        if (currentSelection == tune.length -1) {
             clearInterval(playInterval);
             pauseTune();
             currentSelection = 0;
             currentTime = 0;
             clearKeyboard();
+            buttonSelection.clear();
         } else {
             currentTime++;
         }
